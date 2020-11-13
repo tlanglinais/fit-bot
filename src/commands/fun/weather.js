@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const PREFIX = process.env.PREFIX;
 const fetch = require("node-fetch");
-const { capitalizeEveryWord } = require("../../helpers");
+const { capitalizeEveryWord } = require("../../utils/utilFunctions");
 
 module.exports = {
   name: "weather",
@@ -25,11 +25,11 @@ module.exports = {
         .addFields(
           { name: "Zip:", value: zip, inline: true },
           {
-            name: "Description",
+            name: "Description:",
             value: `${capitalizeEveryWord(weather[0].description)}`,
             inline: true,
           },
-          { name: "Temperature: ", value: `${main.temp}°F.`, inline: true }
+          { name: "Temperature:", value: `${main.temp}°F.`, inline: true }
         )
         .setTimestamp(new Date());
 
