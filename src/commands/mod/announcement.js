@@ -7,7 +7,11 @@ module.exports = {
   args: true,
   format: `${PREFIX}announcement <announcement>`,
   execute: async (message, args) => {
-    return await message.channel.send(`ANNOUNCEMENT!`);
+    try {
+      return await message.channel.send(`ANNOUNCEMENT!`);
+    } catch (error) {
+      console.log(`Error: ${error.message}`);
+    }
   },
 };
 

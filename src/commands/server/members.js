@@ -6,8 +6,12 @@ module.exports = {
   guildOnly: true,
   format: `${PREFIX}members`,
   execute: async (message, args) => {
-    return await message.channel.send(
-      `Total members: ${message.guild.memberCount}`
-    );
+    try {
+      return await message.channel.send(
+        `Total members: ${message.guild.memberCount}`
+      );
+    } catch (error) {
+      console.log(`Error: ${error.message}`);
+    }
   },
 };

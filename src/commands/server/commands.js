@@ -36,7 +36,7 @@ module.exports = {
         )
         .setTimestamp(new Date());
 
-      return message.author
+      return await message.author
         .send(embed)
         .then(() => {
           if (message.channel.type === "dm") return;
@@ -52,7 +52,7 @@ module.exports = {
           );
         });
     } catch (error) {
-      console.log(error.message);
+      console.log(`Error: ${error.message}`);
     }
   },
 };

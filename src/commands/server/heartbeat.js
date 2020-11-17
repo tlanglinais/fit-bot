@@ -4,7 +4,11 @@ module.exports = {
   name: "heartbeat",
   description: "Check to see if the bot is running.",
   format: `${PREFIX}heartbeat`,
-  execute(message, args) {
-    return message.channel.send("I'M ALIVE!");
+  execute: async (message, args) => {
+    try {
+      return await message.channel.send("I'M ALIVE!");
+    } catch (error) {
+      console.log(`Error: ${error.message}`);
+    }
   },
 };

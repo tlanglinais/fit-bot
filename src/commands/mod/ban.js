@@ -7,25 +7,29 @@ module.exports = {
   guildOnly: true,
   args: true,
   permission: permission,
-  format: `${PREFIX}ban <@username> <reason>`,
+  format: `${PREFIX}ban <@username> <reason?>`,
   execute: async (message, args) => {
-    const userToBan = message.mentions.users.first();
-    const member = message.guild.member(userToBan);
+    try {
+      const userToBan = message.mentions.users.first();
+      const member = message.guild.member(userToBan);
 
-    if (message.guild.member(message.author).hasPermission(permission)) {
-      // await member.ban();
-      await message.channel.send(
-        `${member.user} was banned from the server ${args.slice(1).join(" ")}`
-      );
+      if (message.guild.member(message.author).hasPermission(permission)) {
+        await member.ban();
+        await message.channel.send(
+          `${member.user} was banned from the server ${args.slice(1).join(" ")}`
+        );
 
-      const logChannel = message.guild.channels.cache.get(
-        process.env.BOT_LOG_ID
-      );
-      logChannel.send(
-        `${message.author} banned ${member.user} from the server ${args
-          .slice(1)
-          .join(" ")}`
-      );
-    } else message.reply(`You don't have permission to do that :/`);
+        const logChannel = message.guild.channels.cache.get(
+          process.env.BOT_LOG_ID
+        );
+        await logChannel.send(
+          `${message.author} banned ${member.user} from the server ${args
+            .slice(1)
+            .join(" ")}`
+        );
+      } else await message.reply(`You don't have permission to do that :/`);
+    } catch (error) {
+      console.log(`Error: ${error.message}`);
+    }
   },
 };
