@@ -1,4 +1,5 @@
 const PREFIX = process.env.PREFIX;
+const { errorMessage } = require("../../utils/messages");
 
 module.exports = {
   name: "members",
@@ -10,7 +11,7 @@ module.exports = {
     try {
       return await message.channel.send(`ANNOUNCEMENT!`);
     } catch (error) {
-      console.log(`Error: ${error.message}`);
+      console.log(errorMessage(error));
     }
   },
 };

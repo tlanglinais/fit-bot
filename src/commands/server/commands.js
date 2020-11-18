@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const PREFIX = process.env.PREFIX;
+const { errorMessage } = require("../../utils/messages");
 
 module.exports = {
   name: "commands",
@@ -52,7 +53,7 @@ module.exports = {
           );
         });
     } catch (error) {
-      console.log(`Error: ${error.message}`);
+      console.log(errorMessage(error));
     }
   },
 };

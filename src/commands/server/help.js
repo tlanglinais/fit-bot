@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const { errorMessage, unknownCommand } = require("../../utils/messages");
 
 module.exports = {
   name: "help",
@@ -8,7 +9,7 @@ module.exports = {
   execute: async (message, commandName) => {
     try {
       const command = message.client.commands.get(commandName);
-      if (!command) message.reply("I don't recognize that command 😕");
+      if (!command) message.reply(unknownCommand);
 
       const embed = new Discord.MessageEmbed()
         .setColor("#8d93ab")
@@ -19,7 +20,7 @@ module.exports = {
 
       return await message.channel.send(embed);
     } catch (error) {
-      console.log(`Error: ${error.message}`);
+      console.log(errorMessage(error));
     }
   },
 };

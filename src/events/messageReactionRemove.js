@@ -1,3 +1,5 @@
+const { errorMessage } = require("../utils/messages");
+
 module.exports = {
   name: "messageReactionRemove",
   execute: async (client, reaction, user) => {
@@ -11,13 +13,20 @@ module.exports = {
         if (
           reaction.message.id === "778018844270133290" &&
           reaction.emoji.name === "👍"
-        )
-          await reaction.message.guild.members.cache
-            .get(user.id)
-            .roles.remove("778020273601249312");
+        ) {
+          let member = reaction.message.guild.members.cache.get(user.id);
+          console.log("Member was found in the cache.");
+
+          if (!member) {
+            console.log("Member not found in the cache.");
+            member = await reaction.message.guild.members.fetch(user.id);
+          }
+
+          await member.roles.remove("778020273601249312");
+        }
       }
     } catch (error) {
-      console.log(`Error: ${error.message}`);
+      console.log(errorMessage(error));
     }
   },
 };

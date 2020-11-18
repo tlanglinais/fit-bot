@@ -1,3 +1,5 @@
+const { errorMessage } = require("../utils/messages");
+
 module.exports = {
   name: "guildMemberAdd",
   execute: async (client, member) => {
@@ -13,7 +15,7 @@ module.exports = {
 
       channel.send(`Welcome to the server, ${member}`);
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   },
 };

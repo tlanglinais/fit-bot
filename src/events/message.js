@@ -1,9 +1,9 @@
 const prefix = process.env.PREFIX || "!";
+const { errorMessage, unknownCommand } = require("../utils/messages");
 
 module.exports = {
   name: "message",
   execute: async (client, message) => {
-    console.log(message.partial);
     try {
       let msgPrefix = message.content[0];
 
@@ -14,8 +14,7 @@ module.exports = {
       const args = message.content.trim().split(/\s+/);
       const commandName = args.shift().substr(msgPrefix.length);
 
-      if (!client.commands.has(commandName))
-        message.reply("I don't recognize that command 😕");
+      if (!client.commands.has(commandName)) message.reply(unknownCommand);
 
       // ============ Is it a help message? ============ //
       if (msgPrefix === "?") {
@@ -37,7 +36,6 @@ module.exports = {
 
       command.execute(message, args);
     } catch (error) {
-      console.log(error.message);
       switch (error.message) {
         case "Missing Permissions":
           message.reply(`Oh no, I ran into a permissions problem.`);
@@ -47,7 +45,7 @@ module.exports = {
           break;
 
         default:
-          message.reply(`Error: ${error.message}`);
+          console.log(errorMessage(error));
       }
     }
   },

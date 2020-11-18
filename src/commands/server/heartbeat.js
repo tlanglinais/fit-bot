@@ -1,4 +1,5 @@
 const PREFIX = process.env.PREFIX;
+const { errorMessage } = require("../../utils/messages");
 
 module.exports = {
   name: "heartbeat",
@@ -8,7 +9,7 @@ module.exports = {
     try {
       return await message.channel.send("I'M ALIVE!");
     } catch (error) {
-      console.log(`Error: ${error.message}`);
+      console.log(errorMessage(error));
     }
   },
 };

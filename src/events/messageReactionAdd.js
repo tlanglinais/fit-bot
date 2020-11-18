@@ -1,3 +1,5 @@
+const { errorMessage } = require("../utils/messages");
+
 module.exports = {
   name: "messageReactionAdd",
   execute: async (client, reaction, user) => {
@@ -17,7 +19,7 @@ module.exports = {
             .roles.add("778020273601249312");
       }
     } catch (error) {
-      console.log(`Error: ${error.message}`);
+      console.log(errorMessage(error));
     }
   },
 };

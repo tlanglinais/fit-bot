@@ -1,4 +1,5 @@
 const PREFIX = process.env.PREFIX;
+const { invalidPermissions, errorMessage } = require("../../utils/messages");
 
 module.exports = {
   name: "kick",
@@ -29,9 +30,9 @@ module.exports = {
             .slice(1)
             .join(" ")}`
         );
-      } else await message.reply(`You don't have permission to do that :/`);
+      } else await message.reply(invalidPermissions);
     } catch (error) {
-      console.log(`Error: ${error.message}`);
+      console.log(errorMessage(error));
     }
   },
 };
