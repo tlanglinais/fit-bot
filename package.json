@@ -2,11 +2,11 @@
   "name": "discord-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "src/bot.js",
+  "main": "bot.js",
   "scripts": {
-    "start": "node src/bot.js",
-    "dev": "nodemon src/bot.js",
-    "test": "node src/test.js"
+    "start": "node bot.js",
+    "dev": "nodemon bot.js",
+    "test": "node test.js"
   },
   "keywords": [],
   "author": "",
