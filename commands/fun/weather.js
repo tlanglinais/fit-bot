@@ -13,7 +13,7 @@ module.exports = {
     const validZip = /\d{5}/.test(zip);
 
     if (validZip) {
-      const { weather, main } = await (
+      const { weather, main, name } = await (
         await fetch(
           `https://api.openweathermap.org/data/2.5/weather?zip=${args[0]},us&appid=${process.env.WEATHER_API_KEY}&units=imperial`
         )
@@ -21,7 +21,7 @@ module.exports = {
 
       const embed = new Discord.MessageEmbed()
         .setColor("#0099ff")
-        .setTitle("Current Weather")
+        .setTitle(`Current Weather for ${name}`)
         .addFields(
           { name: "Zip:", value: zip, inline: true },
           {
