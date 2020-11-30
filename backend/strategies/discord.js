@@ -1,5 +1,5 @@
 const passport = require("passport");
-const DiscordStrategy = require("passport-discord");
+const DiscordStrategy = require("passport-discord").Strategy;
 const User = require("../db/schemas/User");
 
 passport.serializeUser((user, done) => {
@@ -8,20 +8,21 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (discordId, done) => {
   try {
-    const user = await User.findById(discordId);
+    const user = await User.findOne({ discordId });
     return user ? done(null, user) : done(null, null);
   } catch (error) {
     console.log(error);
-    done(null, null);
+    done(error, null);
   }
 });
+
 passport.use(
   new DiscordStrategy(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
       callbackURL: process.env.CALLBACK_URL,
-      scope: ["indentify", "guild"],
+      scope: ["identify", "guilds"],
     },
     async (accessToken, refreshToken, profile, done) => {
       const { id, username, discriminator, avatar, guilds } = profile;
@@ -38,8 +39,7 @@ passport.use(
         );
 
         if (user) {
-          console.log(`User was found.`);
-          return done();
+          return done(null, user);
         } else {
           const newUser = User.create({
             discordId: id,

@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const { response } = require("express");
 const passport = require("passport");
+
+// router.get("/", () => console.log("auth route"));
 
 router.get("/discord", passport.authenticate("discord"));
 
@@ -8,7 +9,8 @@ router.get(
   "/discord/redirect",
   passport.authenticate("discord"),
   (req, res) => {
-    res.send(200);
+    res.sendStatus(200);
+    // res.redirect("http://localhost:3000");
   }
 );
 
